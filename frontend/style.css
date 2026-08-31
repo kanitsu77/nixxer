@@ -109,4 +109,16 @@ body{
 .dl-btn.primary{ background:var(--black); color:var(--white); }
 .dl-btn .arrow{ font-size:14px; }
 
+.section-label{
+  font-size:10.5px; letter-spacing:.1em; color:var(--muted); text-transform:uppercase;
+  margin:22px 0 8px;
+}
+.photo-item{
+  border:1px solid var(--black); border-radius:10px; overflow:hidden;
+  margin-top:12px; box-shadow:3px 3px 0 var(--panel);
+}
+.photo-item img{ width:100%; display:block; aspect-ratio:3/4; object-fit:cover; background:var(--panel); }
+.photo-item .dl-btn{ border:none; border-top:1px solid var(--line); border-radius:0; box-shadow:none; justify-content:center; }
+.photo-item .dl-btn:hover{ box-shadow:none; transform:none; }
+
 @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
