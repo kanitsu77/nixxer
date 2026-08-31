@@ -4,7 +4,7 @@
     { "src": "frontend/*", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/scrape/(.*)", "dest": "/scrape/$1" },
+    { "src": "/scrape/([^.]+)", "dest": "/scrape/$1.js" },
     { "src": "/style.css", "dest": "/frontend/style.css" },
     { "src": "/script.js", "dest": "/frontend/script.js" },
     { "src": "/", "dest": "/frontend/index.html" }
