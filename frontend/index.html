@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIO — Nixx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="logo-wrap">
+      <div class="logo-badge"><span>N</span></div>
+      <div class="brand-text">
+        <span class="word">AIO</span>
+        <span class="sub">Nixx · All In One Downloader</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">Media Downloader</div>
+    <h1 class="display">Unduh dari mana aja</h1>
+    <p>Pilih platform, tempel link, langsung dapet file-nya.</p>
+
+    <div class="platform-tabs" id="platformTabs"></div>
+
+    <div class="input-row">
+      <input type="text" id="urlInput" placeholder="Tempel link di sini...">
+      <button id="pasteBtn" class="paste-btn" aria-label="Tempel dari clipboard" title="Tempel dari clipboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="4" width="12" height="17" rx="2"></rect>
+          <path d="M9 4h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"></path>
+        </svg>
+      </button>
+    </div>
+    <button id="goBtn" class="process-btn">Proses</button>
+    <div class="hint" id="hint"></div>
+  </div>
+
+  <div class="resultwrap" id="resultWrap" style="display:none;">
+    <div class="result-card" id="resultCard"></div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
