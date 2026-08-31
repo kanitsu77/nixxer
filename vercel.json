@@ -1,0 +1,12 @@
+{
+  "builds": [
+    { "src": "scrape/*.js", "use": "@vercel/node" },
+    { "src": "frontend/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/scrape/(.*)", "dest": "/scrape/$1" },
+    { "src": "/style.css", "dest": "/frontend/style.css" },
+    { "src": "/script.js", "dest": "/frontend/script.js" },
+    { "src": "/", "dest": "/frontend/index.html" }
+  ]
+}
