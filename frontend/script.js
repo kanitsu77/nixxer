@@ -67,7 +67,8 @@ function extFor(type) {
 }
 
 function dlHref(item, index) {
-  const filename = `${activePlatform}-${item.type}-${index + 1}.${extFor(item.type)}`;
+  const unique = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const filename = `${activePlatform}-${item.type}-${index + 1}-${unique}.${extFor(item.type)}`;
   return `/scrape/download?url=${encodeURIComponent(item.url)}&filename=${encodeURIComponent(filename)}`;
 }
 
