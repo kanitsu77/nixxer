@@ -86,13 +86,61 @@ async function scrapeYtmp3(youtubeUrl, format = "mp4") {
   return { title, format: lowerFormat, downloadUrl };
 }
 
+async function getMetadata(url) {
+  try {
+    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`;
+    const resp = await fetch(oembedUrl);
+    if (!resp.ok) return { title: null, author: null, thumbnail: null };
+    const json = await resp.json();
+    return {
+      title: json.title || null,
+      author: json.author_name || null,
+      thumbnail: json.thumbnail_url || null,
+    };
+  } catch {
+    return { title: null, author: null, thumbnail: null };
+  }
+}
+
+async function scrapeYoutubeFull(url) {
+  const [metaResult, videoResult, audioResult] = await Promise.allSettled([
+    getMetadata(url),
+    scrapeYtmp3(url, "mp4"),
+    scrapeYtmp3(url, "mp3"),
+  ]);
+
+  const meta = metaResult.status === "fulfilled" ? metaResult.value : { title: null, author: null, thumbnail: null };
+  const media = [];
+
+  if (videoResult.status === "fulfilled" && videoResult.value.downloadUrl) {
+    media.push({ type: "video", url: videoResult.value.downloadUrl, label: "Video (MP4)" });
+  }
+  if (audioResult.status === "fulfilled" && audioResult.value.downloadUrl) {
+    media.push({ type: "audio", url: audioResult.value.downloadUrl, label: "Audio (MP3)" });
+  }
+
+  if (!media.length) {
+    throw new Error("Gagal mengambil link download, coba lagi beberapa saat.");
+  }
+
+  const fallbackTitle = videoResult.status === "fulfilled" ? videoResult.value.title : null;
+
+  return {
+    title: meta.title || fallbackTitle || null,
+    author: meta.author,
+    thumbnail: meta.thumbnail,
+    stats: null,
+    media,
+  };
+}
+
 module.exports = async (req, res) => {
   if (req.method !== "GET") {
     res.status(405).json({ status: "error", message: "Method not allowed" });
     return;
   }
 
-  const { url, format } = req.query;
+  const { url } = req.query;
 
   if (!url) {
     res.status(400).json({ status: "error", message: "Parameter ?url= wajib diisi" });
@@ -100,16 +148,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const raw = await scrapeYtmp3(url, format || "mp4");
-    const result = {
-      title: raw.title || null,
-      author: null,
-      thumbnail: null,
-      stats: null,
-      media: raw.downloadUrl
-        ? [{ type: raw.format === "mp3" ? "audio" : "video", url: raw.downloadUrl, label: raw.format.toUpperCase() }]
-        : [],
-    };
+    const result = await scrapeYoutubeFull(url);
     res.status(200).json({ status: "success", result });
   } catch (err) {
     res.status(500).json({ status: "error", message: err.message });
