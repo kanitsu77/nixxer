@@ -19,6 +19,11 @@ const PLATFORMS = [
     name: "Facebook",
     icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M13.5 8.2h-1.2c-.9 0-1.3.5-1.3 1.4v1.4H8.7V13h2.3v6h2.4v-6h1.9l.3-2H13.4v-1c0-.5.2-.9.9-.9h1.2V8.2z" fill="currentColor" stroke="none"></path></svg>',
   },
+  {
+    id: "snackvideo",
+    name: "SnackVideo",
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="4"></rect><path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"></path></svg>',
+  },
 ];
 
 let activePlatform = "tiktok";
